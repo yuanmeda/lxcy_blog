@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模块化AMD</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/systemjs/6.8.3/system.min.js"></script>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/require.js/2.3.6/require.min.js"></script> -->
+  <script src="../require.js"></script>
+</head>
+<body>
+
+<script>
+
+require.config({
+  paths: {
+    lodash: 'https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js',
+  },
+});
+
+require(['a', 'b', 'lodash'], function (a, b, _) {
+  console.log('main run') // 🔥
+  a.run()
+  b.run()
+  console.log('lodash run', _.lowerCase("Hua_zhi"));
+})
+
+// a load
+// b load
+// main run
+// a run
+// b run
+// lodash run hua zhi
+
+</script>
+</body>
+</html>

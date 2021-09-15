@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模块化 CMD</title>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/seajs/3.0.3/sea.js"></script> -->
+  <script src="../sea.js"></script>
+</head>
+<body>
+  <script>
+    // sea.js
+    define('a', function (require, exports, module) {
+      console.log('a load')
+      exports.run = function () { console.log('a run') }
+    })
+
+    define('b', function (require, exports, module) {
+      console.log('b load')
+      exports.run = function () { console.log('b run') }
+    })
+
+    define('main', function (require, exports, module) {
+      console.log('main run')
+      var a = require('a')
+      a.run()
+      var b = require('b')
+      b.run()
+    })
+
+    seajs.use('main')
+
+    // main run
+    // a load
+    // a run
+    // b load
+    // b run
+  </script>
+</body>
+</html>
