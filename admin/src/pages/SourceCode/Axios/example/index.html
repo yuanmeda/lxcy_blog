@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+  <title>axios</title>
+</head>
+<body>
+  <div class="div">axios请求</div>
+  <div class="div">
+    <button id="get" class="btn" >GET 请求</button>
+    <button id="post" class="btn" >POST 请求</button>
+    <button id="put" class="btn" >PUT 请求</button>
+    <button id="delete" class="btn" >DELETE 请求</button>
+    <button id="all" class="btn" >并发 请求</button>
+    <button id="spread" class="btn" >spread 请求</button>
+  </div>
+  <div class="div">axios db实例请求 </div>
+  <div class="div">
+    <button id="dbget" class="btn" >GET 请求</button>
+  </div>
+  <div class="div">axios db1实例请求 </div>
+  <div class="div">
+    <button id="db1get" class="btn" >GET 请求</button>
+  </div>
+  <script>
+    const getBtn = document.getElementById('get');
+    const postBtn = document.getElementById('post');
+    const putBtn = document.getElementById('put');
+    const deleteBtn = document.getElementById('delete');
+    const allBtn = document.getElementById('all');
+    const spreadBtn = document.getElementById('spread');
+    const dbGetBtn = document.getElementById('dbget');
+    const db1GetBtn = document.getElementById('db1get');
+    // 1、直接使用
+    // 全局默认值，以及实例默认值的设置 不能重新赋值 ⚠️
+    // axios.defaults = {
+    //   baseURL: 'http://localhost:3000',
+    //   method: 'GET',
+    //   timeout: 3000
+    // }
+    axios.defaults.method = 'GET'
+    axios.defaults.baseURL = 'http://localhost:3000'
+    axios({
+      url:"/posts"
+    }).then(console.log)
+
+    // 2、请求别名 get| post | put | delete
+    // axios.create([config])
+    getBtn.onclick = function(){
+      // axios.get('http://localhost:3000/posts').then(console.log)
+      axios.request({
+        method:'GET',
+        url:"http://localhost:3004/test"
+      }).then(console.log)
+    }
+    // axios.post(url[, data[, config]])
+    postBtn.onclick = function(){
+      axios.post(
+        'http://localhost:3000/posts',
+        {
+          "title": "新增",
+          "author": "lxcy"
+        }
+      ).then(console.log)
+    }
+    // axios.put(url[, data[, config]])
+    putBtn.onclick = function(){
+      axios.put(
+        'http://localhost:3000/comments/1',
+        {
+          "body": "修改",
+        }
+        ).then(console.log)
+    }
+    // axios.delete(url[, config])
+    deleteBtn.onclick = function(){
+      axios.delete('http://localhost:3000/comments/1').then(console.log)
+    }
+
+    // 3、请求并发 axios.all(iterable) axios.spread(callback)
+    // 这里并不知道spread具体做了什么，姑且先放在这里 ❓
+    allBtn.onclick = function () {
+      const fn1 = () => axios.get('http://localhost:3004/test')
+      const fn2 = () => axios.get('http://localhost:3000/comments')
+      axios.all([fn1(), fn2()])
+      // .then(axios.spread((res1, res2) => {
+      //   console.log('res1', res1);
+      //   console.log('res2', res2);
+      // }))
+      .then(console.log)
+    }
+
+    // 4、axios.create(config) 创建多个实例
+
+    const dbIns = axios.create({
+      baseURL: 'http://localhost:3000'
+    })
+
+    const db1Ins = axios.create({
+      baseURL: 'http://localhost:3004'
+    })
+
+    dbGetBtn.onclick = function () {
+      dbIns.get('/profile').then(console.log)
+    }
+
+    db1GetBtn.onclick = function () {
+      db1Ins.get('/test').then(console.log)
+    }
+
+    // 拦截器 interceptor （请求和响应）
+
+  </script>
+  <style>
+    .div{
+      width: 80%;
+      height: auto;
+      margin: 0 auto;
+    }
+    .btn{
+      margin: 10px;
+      padding: 5px;
+      background-color: aquamarine;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</body>
+</html>

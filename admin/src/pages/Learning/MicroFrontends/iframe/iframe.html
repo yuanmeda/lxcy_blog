@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基座</title>
+  <style>
+    body{
+      width: 1000px;
+      height: 500px;
+      background-color: blanchedalmond;
+    }
+  </style>
+</head>
+<body>
+  <div class="father">
+    <button id="ifA">跳转到iframeA</button>
+    <button id="ifB">跳转到iframeB</button>
+    <button onclick="sayHello()">sayhello</button>
+  </div>
+  <script>
+    function destroy () {
+      const iframes = document.getElementsByTagName('iframe');
+      while(iframes.length){
+        iframes[0].parentNode.removeChild(iframes[0]);
+      }
+    }
+    const ifA = document.getElementById('ifA');
+    const ifB = document.getElementById('ifB');
+    ifA.onclick = () => {
+      destroy();
+      const iframe =  document.createElement('iframe');
+      iframe.id = 'iframeA';
+      iframe.width = '500px';
+      iframe.height = '500px';
+      iframe.src = './iframeA.html';
+      document.body.appendChild(iframe);
+    }
+    ifB.onclick = () => {
+      destroy();
+      const iframe =  document.createElement('iframe');
+      iframe.id = 'iframeB';
+      iframe.width = '500px';
+      iframe.height = '500px';
+      iframe.src = './iframeB.html';
+      document.body.appendChild(iframe);
+    }
+
+    window.addEventListener('click', () => console.log('parent点击'), false);
+    // 主应用回劫持快捷键操作？当鼠标焦点聚焦到子应用时，触发的是子应用的黏贴事件
+    window.addEventListener('paste',  () => console.log('parent黏贴事件'), false);
+
+    window.sayHello = () => {
+      console.log('parent sayHello');
+    }
+  </script>
+</body>
+</html>

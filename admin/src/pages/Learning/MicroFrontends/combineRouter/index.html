@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组合式应用路由分发</title>
+</head>
+<body>
+  <button onclick="sayHello()">sayhello</button>
+
+  <script>
+    window.sayHello = () => {
+      console.log('parent sayhello')
+    }
+    window.load = () => {
+      document.write(childA.import.body.innerHTML)
+    }
+    window.sayHello = () => {
+      console.log('child sayhello')
+    }
+  </script>
+</body>
+</html>

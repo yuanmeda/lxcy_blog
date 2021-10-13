@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>proxy代理方法</title>
+  </head>
+  <body>
+    <script>
+      const windowMap = new Map(); // 使用路由作为key存储当前window的映射
+      const resetWindow = {}; // 被代理的对象
+      let routerUrl = ''; // 当前路由
+
+      const handler = {
+        get(obj, key) {
+          const win = windowMap.get(routerUrl);
+          return win[key];
+        },
+        set(obj, key, value) {
+          if (!windowMap.has(routerUrl)) {
+            windowMap.set(routerUrl, JSON.parse(JSON.stringify(resetWindow)));
+          }
+
+          const win = windowMap.get(routerUrl);
+          win[key] = value;
+        },
+      };
+
+      const proxyA = new Proxy(resetWindow, handler);
+      // 基座 设置 属性
+      proxyA.info = '我是基座应用的info属性';
+
+      // 改变路由
+      routerUrl = '/routeA';
+      proxyA.info = '我是routeA应用下的info属性';
+
+      console.log(proxyA.info);
+
+      // 改变路由回到基座
+      routerUrl = '';
+      console.log(proxyA.info);
+
+      // 改变路由到子类
+      routerUrl = '/routeB';
+      proxyA.info = '我是routeB应用下的info属性';
+      console.log(proxyA.info);
+    </script>
+  </body>
+</html>

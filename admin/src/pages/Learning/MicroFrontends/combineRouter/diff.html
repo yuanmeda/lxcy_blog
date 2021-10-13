@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>diff方法</title>
+  </head>
+  <body>
+    <script>
+      class SandBox {
+        cacheCurrentWin = {};
+        cacheBeforeWin = {};
+
+        showPage() {
+          this.cacheBeforeWin = {};
+          // 加载页面之前，将window上的变量和方法都缓存到map中， 使用for...in copy 原型链上的属性方法
+          for (const item in window) {
+            this.cacheBeforeWin[item] = window[item];
+          }
+          Object.keys(this.cacheCurrentWin).forEach((item) => {
+            window[item] = this.cacheCurrentWin[item];
+          });
+        }
+
+        hidePage() {
+          // 卸载页面时，再将之前存储的map重新替换回来
+          for (const item in window) {
+            if (this.cacheBeforeWin[item] !== window[item]) {
+              // 缓存记录
+              this.cacheCurrentWin[item] = window[item];
+              // 还原window上的属性
+              window[item] = this.cacheBeforeWin[item];
+            }
+          }
+        }
+      }
+
+      window.info = '我是父应用';
+      const diffSandBox = new SandBox();
+      // 模拟激活子应用
+      diffSandBox.showPage();
+      window.info = '我是子应用';
+      console.log('页面激活，子应用对应的值', window.info);
+      // 模拟页面卸载
+      diffSandBox.hidePage();
+      console.log('页面卸载，主应用对应的值', window.info);
+      // 重新激活
+      diffSandBox.showPage();
+      console.log('页面激活，子应用对应的值', window.info);
+    </script>
+  </body>
+</html>

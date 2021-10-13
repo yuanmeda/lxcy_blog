@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<link>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原生的Web components 方法实现</title>
+</head>
+<body>
+  <user-card></user-card>
+  <template id="userCardTemplate">
+    <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" class="image" />
+    <div class="container">
+      <p class="name">User Name</p>
+      <p class="email">yourmail@some-email.com</p>
+      <button class="button">Follow</button>
+    </div>
+  </template>
+  <script>
+    class UserCard extends HTMLElement {
+      constructor() {
+        super();
+
+        var templateElem = document.getElementById('userCardTemplate');
+        var content = templateElem.content.cloneNode(true);
+        this.appendChild(content);
+      }
+    }
+    window.customElements.define('user-card', UserCard);
+  </script>
+</body>
+</html>

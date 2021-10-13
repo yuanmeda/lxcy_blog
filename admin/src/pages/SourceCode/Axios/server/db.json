@@ -1,0 +1,23 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "title": "新增",
+      "author": "lxcy",
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "body": "修改",
+      "id": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
