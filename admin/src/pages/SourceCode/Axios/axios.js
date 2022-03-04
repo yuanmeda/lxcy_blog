@@ -8,7 +8,5 @@
 // 1. axios(config) 传入一个配置对象，返回一个promise
 
 function axios(config) {
-  return new Promise((resolve, reject) => {
-
-  })
+  return new Promise((resolve, reject) => {});
 }

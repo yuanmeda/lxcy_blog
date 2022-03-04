@@ -1,4 +1,3 @@
-
 var x = 5;
 var addX = function (value) {
   return ++x;
@@ -6,9 +5,9 @@ var addX = function (value) {
 
 var obj = {
   name: {
-    aa: ' 1111'
-  }
-}
+    aa: ' 1111',
+  },
+};
 module.exports.x = x;
 module.exports.addX = addX;
 module.exports.obj = obj;

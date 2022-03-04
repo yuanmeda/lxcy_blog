@@ -6,32 +6,31 @@
  */
 class CMEvent {
   constructor(element) {
-    this.element = element
+    this.element = element;
   }
 
   addEvent(type, handler) {
     if (this.element.addEventListener) {
-      this.element.addEventListener(type, handler, false)
+      this.element.addEventListener(type, handler, false);
     } else if (this.element.attachEvent) {
       this.element.attachEvent(`on${type}`, function () {
-        handler.call(this.element)
-      })
+        handler.call(this.element);
+      });
     } else {
-      this.element[`on${type}`] = handler
+      this.element[`on${type}`] = handler;
     }
   }
 
   removeEvent(type, handler) {
     if (this.element.removeEventListener) {
-      this.element.removeEventListener(type, handler, false)
+      this.element.removeEventListener(type, handler, false);
     } else if (this.element.detachEvent) {
       this.element.detachEvent(`on${type}`, function () {
-        handler.call(this.element)
-      })
+        handler.call(this.element);
+      });
     } else {
-      this.element[`on${type}`] = null
+      this.element[`on${type}`] = null;
     }
-
   }
 }
 // 使用
@@ -41,7 +40,7 @@ class CMEvent {
 
 function stopPropagation(e) {
   if (e.stopPropagation) {
-    e.stopPropagation()
+    e.stopPropagation();
   } else {
     e.cancelBubble = true; // IE 取消事件冒泡，IE没有事件捕获阶段
   }
@@ -49,8 +48,8 @@ function stopPropagation(e) {
 
 function preventEvent(e) {
   if (e.preventEvent) {
-    e.preventEvent()
+    e.preventEvent();
   } else {
-    e.returnValue = false // IE
+    e.returnValue = false; // IE
   }
 }

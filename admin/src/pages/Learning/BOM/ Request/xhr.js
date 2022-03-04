@@ -5,14 +5,14 @@
  * @Description: 原生XMLHttpRequest
  */
 const xhr = new XMLHttpRequest();
-xhr.open('get', 'http://127.0.0.1:3001')
+xhr.open('get', 'http://127.0.0.1:3001');
 xhr.onreadystatechange = function () {
   if (xhr.readyState !== 4) {
-    return
+    return;
   }
-  if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+  if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
     console.log('返回结果', xhr.responseText);
   }
-}
-xhr.timeout = 3000
+};
+xhr.timeout = 3000;
 xhr.send();

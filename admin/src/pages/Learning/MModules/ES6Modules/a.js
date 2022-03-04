@@ -4,11 +4,7 @@ const addX = function (value) {
 };
 const obj = {
   name: {
-    aa: ' 1111'
-  }
-}
-export {
-  x,
-  addX,
-  obj
-}
+    aa: ' 1111',
+  },
+};
+export { x, addX, obj };

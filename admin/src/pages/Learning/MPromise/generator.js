@@ -5,14 +5,15 @@
  * @Description: 实现一个自执行的迭代器
  */
 
-const mockAsyncFetch = (time) => new Promise(resolve => setTimeout(() => resolve(time), time));
+const mockAsyncFetch = (time) =>
+  new Promise((resolve) => setTimeout(() => resolve(time), time));
 
 function* generator() {
-  const res = yield mockAsyncFetch(1000)
+  const res = yield mockAsyncFetch(1000);
   console.log(res);
-  const res1 = yield mockAsyncFetch(2000)
+  const res1 = yield mockAsyncFetch(2000);
   console.log(res1);
-  return res1
+  return res1;
 }
 
 const i = generator();
@@ -29,10 +30,8 @@ function asyncFunc(generator) {
     // data 为上一次执行的结果
     const { done, value } = iterator.next(data);
     if (done) return value; // 执行完毕后返回
-    value.then(data => go(data))
-  }
+    value.then((data) => go(data));
+  };
 
-  go()
+  go();
 }
-
-

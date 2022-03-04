@@ -1,6 +1,8 @@
 define('a', function () {
-  console.log('a load')
+  console.log('a load');
   return {
-    run: function () { console.log('a run') }
-  }
-})
+    run: function () {
+      console.log('a run');
+    },
+  };
+});

@@ -1,6 +1,8 @@
 define('b', function () {
-  console.log('b load')
+  console.log('b load');
   return {
-    run: function () { console.log('b run') }
-  }
-})
+    run: function () {
+      console.log('b run');
+    },
+  };
+});
